@@ -47,8 +47,49 @@ class ModelTrainer:
                 "GradientBoostRegressor":GradientBoostingRegressor(),
                 "RandomForestRegressor":RandomForestRegressor()
             }
+
+            params={
+                "Linear_regression":{},
+                "Ridge":{
+                    "alpha":[0.001,0.0001,0.01,0.1],
+                    "fit_intercept":[True,False]
+                },
+                "Decision_tree":{
+                    "criterion":['squared_error','friedman_mse','absolute_error', 'poisson'],
+                    "max_depth":[10,50,500],
+                    "min_samples_split":[1,2,4,5]
+                },
+                "KNeighborsRegressor":{
+                    "n_neighbors":[3,5,7,9]
+                },
+                "XgbRegressor":{
+                    "learning_rate":[0.1,1,0.001],
+                    "max_depth":[10,50,100,500],
+                    "n_estimators":[8,16,32,64]
+                },
+                "catboostRegressor":{
+                    "learning_rate":[1,0.001,0.1],
+                    "depth":[6,8,10],
+                    "iterations":[30,50,100]
+                },
+                "AdaboostRegressor":{
+                    "learning_rate": [1, 0.001, 0.1],
+                    "n_estimators": [8, 16, 32, 64]
+                },
+                "GradientBoostRegressor":{
+                    "learning_rate": [1, 0.001, 0.1],
+                    "n_estimators": [8, 16, 32, 64]
+                },
+                "RandomForestRegressor":{
+                    "n_estimators":[10,50,80,100],
+                    "criterion": ['squared_error', 'friedman_mse', 'absolute_error', 'poisson']
+                }
+            }
+            logging.info("Hyperparameter Set for all models")
+
+
             model_report:dict=evaluate_model(X_train=X_train,y_train=y_train,
-                                             X_test=X_test,y_test=y_test,models=models)
+                                    X_test=X_test,y_test=y_test,models=models,param=params)
 
             best_model_score=max(sorted(model_report.values()))
 
