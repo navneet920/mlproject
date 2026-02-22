@@ -6,4 +6,7 @@ scikit-learn
 catboost
 xgboost
 dill
+fastapi
+uvicorn
+pydantic
 -e .
